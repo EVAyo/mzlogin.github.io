@@ -88,13 +88,25 @@ mathjax: true
 如果是使用本模板最新代码，那不用做什么，会自动引用最新版本。如果一再刷新后还是不行的话，那需要刷新一下你本地的缓存，方法是依次访问以下 2 个链接：
 
 - <https://purge.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js>
-- <https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js?v=1.7.2>
+- <https://fastly.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js?v=1.7.2>
 
 ## Gitalk 评论框部分提示 Error: Not Found
 
 页面上提示 `Error: Not Found.`，浏览器控制台可以看到报错信息 `GET https://api.github.com/repos/<用户名>/<repo>/issues?labels=gitment,xxx 404`。
 
 这种情况一般是 _config.yml 的 gitalk.repo 这个配置项填写的不对。这个配置项是要填写一个利用其 Issues 存储评论内容的代码仓库名称，请确保填写的名称对应的代码仓库存在，如果想省事点可以直接填写博客源码对应的仓库名称，比如 `<用户名>.github.io`。
+
+## giscus 配置注意事项
+
+参考官方文档：<https://giscus.app/zh-CN>。
+
+主要注意事项：
+
+1. 用于存放评论的仓库要是 public 的；
+2. giscus app 已经安装到 GitHub 账户；
+3. Discussions 功能已在仓库里启用；
+4. 如果存放评论的仓库里使用 giscus.json 文件限制加载的域名，要确保你的博客域名在这个文件里。
+
 
 ## 修改二维码图片
 
@@ -117,6 +129,33 @@ _config.yml 里的 components.qrcode 这一段用于控制二维码。
 *links.yml* 文件里的内容对应[「链接」][2]页面里的内容。
 
 ![](/images/posts/template/links.yml.png)
+
+## 如何置顶文章
+
+在 Markdown 文件头部的元信息里指定 `topmost: true`。
+
+如：
+
+![](https://user-images.githubusercontent.com/1646590/216495045-cfabd732-a029-4f66-a3b8-94d5cedcac7e.png)
+
+## 添加/删除了文章，但是站点没有更新
+
+这种问题一般就是编译出错了。
+
+可以查看自己源码仓库的提交记录，每次提交后面绿色的小勾表示编译没有问题，如果有问题，会看到有红色的小叉：
+
+![](/images/posts/template/jekyll-build-error.png)
+
+点击这个红色的小叉，进 details 可以看到编译报错的具体原因，然后就可以针对性的修改了。
+
+比较常见的可能导致编译出错的问题：
+
+- .yml 文件里有语法错误
+- .md 文件里有无意识引入的 Liquid 语法标记
+
+## 自定义域名
+
+参考 GitHub 的官方说明：<https://docs.github.com/zh/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages>
 
 [1]: https://mazhuang.org/about/
 [2]: https://mazhuang.org/links/
